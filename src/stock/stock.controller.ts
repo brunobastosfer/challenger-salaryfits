@@ -1,16 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { StockService } from './stock.service';
-import { CreateStockDto } from './dto/create-stock.dto';
-import { UpdateStockDto } from './dto/update-stock.dto';
+import { CheckMedicineExistenceStockPipe } from './pipe/CheckMedicineExistencePipe';
+import { Response } from 'express';
 
 @Controller('stock')
 export class StockController {
   constructor(private readonly stockService: StockService) {}
-
-  @Post()
-  create(@Body() createStockDto: CreateStockDto) {
-    return this.stockService.create(createStockDto);
-  }
 
   @Get()
   findAll() {
@@ -19,16 +14,23 @@ export class StockController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.stockService.findOne(+id);
+    return this.stockService.findStockByMedicineId(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStockDto: UpdateStockDto) {
-    return this.stockService.update(+id, updateStockDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.stockService.remove(+id);
+  @Get('medicine/:id/report-pdf')
+  async getPdf(
+    @Param('id', CheckMedicineExistenceStockPipe) id: string,
+    @Query('initialDate') initialDate: string,
+    @Query('finalDate') finalDate: string,
+    @Res() res: Response,
+  ) {
+    const pdfData = await this.stockService.generatePDF(
+      id,
+      initialDate,
+      finalDate,
+    );
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=report.pdf');
+    res.send(pdfData);
   }
 }

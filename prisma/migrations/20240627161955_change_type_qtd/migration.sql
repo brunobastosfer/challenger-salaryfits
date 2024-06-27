@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Entrance" ALTER COLUMN "qtd" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Exit" ALTER COLUMN "qtd" SET DATA TYPE TEXT;

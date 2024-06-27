@@ -10,6 +10,8 @@ import {
 import { MedicineService } from './medicine.service';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { UpdateMedicineDto } from './dto/update-medicine.dto';
+import { CheckMedicineExistencePipe } from './pipes/check-medicine-existence.pipe';
+import { Medicine } from './entities/medicine.entity';
 
 @Controller('medicine')
 export class MedicineController {
@@ -27,19 +29,19 @@ export class MedicineController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.medicineService.findOne(+id);
+    return this.medicineService.findOne(id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id', CheckMedicineExistencePipe) medicine: Medicine,
     @Body() updateMedicineDto: UpdateMedicineDto,
   ) {
-    return this.medicineService.update(+id, updateMedicineDto);
+    return this.medicineService.update(medicine, updateMedicineDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.medicineService.remove(+id);
+  remove(@Param('id', CheckMedicineExistencePipe) medicine: Medicine) {
+    return this.medicineService.remove(medicine.id);
   }
 }

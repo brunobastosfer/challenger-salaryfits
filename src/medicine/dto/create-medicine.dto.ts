@@ -14,7 +14,7 @@ export class CreateMedicineDto {
   @IsIn(
     [
       'fitoterapico',
-      'Alopatico',
+      'alopatico',
       'homeopatico',
       'similar',
       'generico',
@@ -24,4 +24,7 @@ export class CreateMedicineDto {
     { message: 'Invalid Type' },
   )
   type: MedicineType;
+
+  @IsNumber()
+  qtd: number;
 }

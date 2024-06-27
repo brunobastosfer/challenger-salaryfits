@@ -18,38 +18,41 @@ enum MedicineType {
 }
 
 model Medicine {
-  id        String       @id @unique   @default(uuid())
-  name      String
+  id          String       @id @unique @default(uuid())
+  name        String
   description String
-  price Float
-  type      MedicineType @default(generico)
-  createdAt DateTime     @default(now())
-  updatedAt DateTime     @updatedAt
+  price       Float
+  qtd         Int          @default(0)
+  type        MedicineType @default(generico)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
-  stock_id       String @unique
-  stock Stock @relation(fields: [stock_id], references: [id], onUpdate: Cascade)
+  stock_id String @unique
+  stock    Stock  @relation(fields: [stock_id], references: [id], onUpdate: Cascade)
 }
 
 model Stock {
-  id String @id @unique @default(uuid())
-  medicines Medicine?
+  id       String    @id @unique @default(uuid())
+  medicine Medicine?
 
-  entrance Entrance?
-  exit Exit?
+  entrance Entrance[]
+  exit     Exit[]
 }
 
 model Entrance {
-  id String @id @unique @default(uuid())
+  id        String   @id @unique @default(uuid())
+  qtd       String
   createdAt DateTime @default(now())
 
-  stock_id String @unique
-  stock Stock @relation(fields: [stock_id], references: [id])
+  stock_id String
+  stock    Stock  @relation(fields: [stock_id], references: [id])
 }
 
 model Exit {
-  id String @id @unique @default(uuid())
+  id        String   @id @unique @default(uuid())
+  qtd       String
   createdAt DateTime @default(now())
 
-  stock_id String @unique
-  stock Stock  @relation(fields: [stock_id], references: [id])
+  stock_id String
+  stock    Stock  @relation(fields: [stock_id], references: [id])
 }
