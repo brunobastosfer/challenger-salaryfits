@@ -11,7 +11,7 @@ export class MedicineService {
     try {
       const medicine = await this.medicineRepository.create(createMedicineDto);
       return medicine;
-    } catch (error) {
+    } catch {
       throw new BadRequestException("Can't create medicine");
     }
   }

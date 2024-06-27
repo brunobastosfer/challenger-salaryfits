@@ -25,4 +25,31 @@ model Medicine {
   type      MedicineType @default(generico)
   createdAt DateTime     @default(now())
   updatedAt DateTime     @updatedAt
+
+  stock_id       String @unique
+  stock Stock @relation(fields: [stock_id], references: [id], onUpdate: Cascade)
+}
+
+model Stock {
+  id String @id @unique @default(uuid())
+  medicines Medicine?
+
+  entrance Entrance?
+  exit Exit?
+}
+
+model Entrance {
+  id String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+
+  stock_id String @unique
+  stock Stock @relation(fields: [stock_id], references: [id])
+}
+
+model Exit {
+  id String @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+
+  stock_id String @unique
+  stock Stock  @relation(fields: [stock_id], references: [id])
 }
