@@ -35,16 +35,4 @@ export class EntrancePrismaRepository implements EntranceReposity {
       },
     });
   }
-
-  async testQuery(medicineId: string) {
-    return await this.prisma.entrance.findMany({
-      where: {
-        stock: {
-          medicine: {
-            id: medicineId,
-          },
-        },
-      },
-    });
-  }
 }

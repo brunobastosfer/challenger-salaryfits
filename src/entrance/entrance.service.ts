@@ -23,8 +23,4 @@ export class EntranceService {
       finalDate,
     );
   }
-
-  async testQuery(medicineId: string) {
-    return await this.entranceRepository.testQuery(medicineId);
-  }
 }

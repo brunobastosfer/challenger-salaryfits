@@ -7,5 +7,4 @@ export abstract class EntranceReposity {
     initialDate: string,
     finalDate: string,
   ): Promise<Entrance[]>;
-  abstract testQuery(medicineId: string): Promise<any>;
 }
