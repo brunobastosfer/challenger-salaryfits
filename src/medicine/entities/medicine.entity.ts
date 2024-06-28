@@ -11,4 +11,6 @@ export class Medicine {
     | 'manipulado';
   price: number;
   description: string;
+  qtd: number;
+  stock_id: string;
 }

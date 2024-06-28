@@ -2,33 +2,59 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateMedicineDto } from './dto/create-medicine.dto';
 import { UpdateMedicineDto } from './dto/update-medicine.dto';
 import { MedicineRepository } from './repository/medicine.repository';
+import { StockService } from 'src/stock/stock.service';
+import { Medicine } from './entities/medicine.entity';
+import { EntranceService } from 'src/entrance/entrance.service';
+import { ExitService } from 'src/exit/exit.service';
+import { MedicineParamsDTO } from './dto/medicine-params.dto';
 
 @Injectable()
 export class MedicineService {
-  constructor(private readonly medicineRepository: MedicineRepository) {}
+  constructor(
+    private readonly medicineRepository: MedicineRepository,
+    private readonly stockService: StockService,
+    private readonly entranceService: EntranceService,
+    private readonly exitService: ExitService,
+  ) {}
 
   async create(createMedicineDto: CreateMedicineDto) {
     try {
-      const medicine = await this.medicineRepository.create(createMedicineDto);
+      const stock = await this.stockService.create();
+      await this.entranceService.create(stock.id, `+${createMedicineDto.qtd}`);
+      const medicine = await this.medicineRepository.create(
+        createMedicineDto,
+        stock.id,
+      );
       return medicine;
-    } catch (error) {
+    } catch {
       throw new BadRequestException("Can't create medicine");
     }
   }
 
-  findAll() {
-    return `This action returns all medicine`;
+  async findAll(params: MedicineParamsDTO) {
+    return await this.medicineRepository.findAll(params);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} medicine`;
+  async findOne(id: string) {
+    return await this.medicineRepository.findOne(id);
   }
 
-  update(id: number, updateMedicineDto: UpdateMedicineDto) {
-    return `This action updates a #${id} medicine`;
+  async update(medicine: Medicine, data: UpdateMedicineDto) {
+    if (medicine.qtd > data.qtd) {
+      await this.exitService.create(
+        medicine.stock_id,
+        `-${Math.abs(data.qtd - medicine.qtd)}`,
+      );
+    } else {
+      await this.entranceService.create(
+        medicine.stock_id,
+        `+${Math.abs(data.qtd - medicine.qtd)}`,
+      );
+    }
+    return await this.medicineRepository.update(medicine.id, data);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} medicine`;
+  async remove(id: string) {
+    return await this.medicineRepository.remove(id);
   }
 }
