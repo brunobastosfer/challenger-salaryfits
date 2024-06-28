@@ -61,6 +61,8 @@ $ npm run test:cov
  ```bash
   $ npx prisma migrate dev
  ```
+- Apenas admins podem criar medicamentos.
+- Convidado e admin podem verificar todos os medicamentos
 
 ## Contatos
 
