@@ -5,6 +5,8 @@ import { Medicine } from 'src/medicine/entities/medicine.entity';
 import { plainToInstance } from 'class-transformer';
 import { Injectable } from '@nestjs/common';
 import { Entrance } from 'src/entrance/entities/entrance.entity';
+import { MedicineParamsDTO } from 'src/medicine/dto/medicine-params.dto';
+import { PaginatedDto } from 'src/utils/types/dtos/paginated-response.dto';
 @Injectable()
 export class MedicinePrismaRepository implements MedicineRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -62,5 +64,34 @@ export class MedicinePrismaRepository implements MedicineRepository {
       },
     });
     return entrances;
+  }
+
+  async findAll(params: MedicineParamsDTO): Promise<PaginatedDto> {
+    let { page, perPage, name, ...searchParams } = params;
+    page = params.page || 1;
+    perPage = params.perPage || 5;
+
+    const medicine = plainToInstance(
+      Medicine,
+      await this.prisma.medicine.findMany({
+        where: {
+          name: {
+            contains: name,
+          },
+          ...searchParams,
+        },
+        include: {
+          stock: true,
+        },
+        skip: (page - 1) * perPage,
+        take: perPage,
+      }),
+    );
+    return {
+      page: page,
+      perPage: perPage,
+      count: medicine.length,
+      data: medicine,
+    };
   }
 }

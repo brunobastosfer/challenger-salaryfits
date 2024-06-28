@@ -6,6 +6,7 @@ import { StockService } from 'src/stock/stock.service';
 import { Medicine } from './entities/medicine.entity';
 import { EntranceService } from 'src/entrance/entrance.service';
 import { ExitService } from 'src/exit/exit.service';
+import { MedicineParamsDTO } from './dto/medicine-params.dto';
 
 @Injectable()
 export class MedicineService {
@@ -30,8 +31,8 @@ export class MedicineService {
     }
   }
 
-  findAll() {
-    return `This action returns all medicine`;
+  async findAll(params: MedicineParamsDTO) {
+    return await this.medicineRepository.findAll(params);
   }
 
   async findOne(id: string) {

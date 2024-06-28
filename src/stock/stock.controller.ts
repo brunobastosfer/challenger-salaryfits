@@ -2,7 +2,9 @@ import { Controller, Get, Param, Query, Res } from '@nestjs/common';
 import { StockService } from './stock.service';
 import { CheckMedicineExistenceStockPipe } from './pipe/CheckMedicineExistencePipe';
 import { Response } from 'express';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Estoque')
 @Controller('stock')
 export class StockController {
   constructor(private readonly stockService: StockService) {}

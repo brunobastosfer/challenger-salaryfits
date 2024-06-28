@@ -1,11 +1,18 @@
 import { Controller, Post, Body, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { ApiBody, ApiHeader, ApiOperation, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiHeader,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { credentialsValidationPipe } from './pipes/credentials-validation.pipe';
 import { loginDto } from './dto/credentials.dto';
 import { RefreshJwtGuard } from './guards/refresh.guard';
 import { Request as ExpressRequest } from 'express';
 
+@ApiTags('Autenticação')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}

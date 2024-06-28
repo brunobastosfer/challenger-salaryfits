@@ -1,5 +1,5 @@
 export const admins = [
-  'admin@admin.com.br',
-  'janaina.leite@salaryfits.com',
-  'brenda.oliveira@salaryfits.com',
+  'admin@email.com.br',
+  'janaina.leite@email.com',
+  'brenda.oliveira@email.com',
 ];
