@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://cdn.prod.website-files.com/604f6dd6484918ba61b90055/660c3ae38c4e84e1e8e4faad_LOGO.png" target="blank"><img src="https://www.salaryfits.com.br/" width="200" alt="Salary Fit Logo" /></a>
+  <a href="https://www.salaryfits.com.br/" target="blank"><img src="https://cdn.prod.website-files.com/604f6dd6484918ba61b90055/660c3ae38c4e84e1e8e4faad_LOGO.png" width="200" alt="Salary Fit Logo" /></a>
 </p>
 
 ## Description
