@@ -14,8 +14,6 @@ export class ExitService {
   }
 
   async getExits(medicineId: string, initialDate: string, finalDate: string) {
-    console.log(initialDate);
-    console.log(finalDate);
     return await this.exitRepository.getExits(
       medicineId,
       initialDate,

@@ -47,8 +47,6 @@ export class StockService {
       finalDate,
     );
 
-    console.log(exits);
-
     const medicine =
       await this.stockRepository.findStockByMedicineId(medicineId);
 
