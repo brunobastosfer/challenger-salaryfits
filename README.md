@@ -57,7 +57,11 @@ $ npm run test:cov
 
 - Ao executar o projeto, será enviado dois seeds para o banco de dados. Ambos são para criar usuários no banco de dados.
 - Observar as variáveis de ambiente.
+- Lembre-se de rodar todas as migrates antes de executar o projeto. Segue o comando:
+ ```bash
+  $ npx prisma migrate dev
+ ```
 
-## Stay in touch
+## Contatos
 
 - Author - [Bruno bastos Fernandes](https://br.linkedin.com/in/brunobastosfer)
