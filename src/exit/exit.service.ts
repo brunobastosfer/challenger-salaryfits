@@ -13,11 +13,7 @@ export class ExitService {
     return await this.exitRepository.findOne(stockId);
   }
 
-  async getExits(medicineId: string, initialDate: string, finalDate: string) {
-    return await this.exitRepository.getExits(
-      medicineId,
-      initialDate,
-      finalDate,
-    );
+  async getExits(initialDate: string, finalDate: string) {
+    return await this.exitRepository.getExits(initialDate, finalDate);
   }
 }

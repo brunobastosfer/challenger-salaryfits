@@ -6,4 +6,8 @@ export abstract class StockRepository {
   abstract create(): Promise<Stock>;
   abstract update(medicine: Medicine, data: UpdateMedicineDto): Promise<Stock>;
   abstract findStockByMedicineId(id: string): Promise<Stock>;
+  abstract findStockByDates(
+    startDate: string,
+    endDate: string,
+  ): Promise<Stock[]>;
 }

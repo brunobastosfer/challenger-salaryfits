@@ -27,23 +27,12 @@ export class ExitPrismaRepository {
     });
   }
 
-  async getExits(
-    medicineId: string,
-    initialDate: string,
-    finalDate: string,
-  ): Promise<any> {
+  async getExits(initialDate: string, finalDate: string): Promise<Exit[]> {
     return await this.prisma.exit.findMany({
       where: {
-        stock: {
-          medicine: {
-            id: medicineId,
-          },
-        },
-        AND: {
-          createdAt: {
-            gte: new Date(initialDate),
-            lte: new Date(finalDate),
-          },
+        createdAt: {
+          gte: new Date(initialDate),
+          lte: new Date(finalDate),
         },
       },
     });

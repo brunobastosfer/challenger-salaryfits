@@ -21,6 +21,56 @@ export class StockPrismaRepository implements StockRepository {
     });
   }
 
+  async findStockByDates(startDate: string, endDate: string): Promise<Stock[]> {
+    return plainToInstance(
+      Stock,
+      await this.prisma.stock.findMany({
+        where: {
+          OR: [
+            {
+              createdAt: {
+                gte: new Date(startDate),
+                lte: new Date(endDate),
+              },
+            },
+            {
+              updatedAt: {
+                gte: new Date(startDate),
+                lte: new Date(endDate),
+              },
+            },
+          ],
+        },
+        include: {
+          medicine: {
+            select: {
+              id: true,
+              name: true,
+              description: true,
+              price: true,
+              type: true,
+              qtd: true,
+            },
+          },
+          entrance: {
+            select: {
+              id: true,
+              qtd: true,
+              createdAt: true,
+            },
+          },
+          exit: {
+            select: {
+              id: true,
+              qtd: true,
+              createdAt: true,
+            },
+          },
+        },
+      }),
+    );
+  }
+
   async findStockByMedicineId(id: string): Promise<Stock> {
     return plainToInstance(
       Stock,

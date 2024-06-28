@@ -12,15 +12,7 @@ export class EntranceService {
     return await stockId;
   }
 
-  async getEntrances(
-    medicineId: string,
-    initialDate: string,
-    finalDate: string,
-  ) {
-    return await this.entranceRepository.getEntrances(
-      medicineId,
-      initialDate,
-      finalDate,
-    );
+  async getEntrances(initialDate: string, finalDate: string) {
+    return await this.entranceRepository.getEntrances(initialDate, finalDate);
   }
 }

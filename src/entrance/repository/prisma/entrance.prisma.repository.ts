@@ -14,22 +14,18 @@ export class EntrancePrismaRepository implements EntranceReposity {
       },
     });
   }
-  async getEntrances(
-    medicineId: string,
-    initialDate: string,
-    finalDate: string,
-  ): Promise<Entrance[]> {
+  async getEntrances(initialDate: string, finalDate: string): Promise<any[]> {
     return await this.prisma.entrance.findMany({
       where: {
-        stock: {
-          medicine: {
-            id: medicineId,
-          },
+        createdAt: {
+          gte: new Date(initialDate),
+          lte: new Date(finalDate),
         },
-        AND: {
-          createdAt: {
-            gte: new Date(initialDate),
-            lte: new Date(finalDate),
+      },
+      include: {
+        stock: {
+          include: {
+            medicine: true,
           },
         },
       },

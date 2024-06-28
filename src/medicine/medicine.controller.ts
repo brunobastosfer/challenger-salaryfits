@@ -76,6 +76,7 @@ export class MedicineController {
   @ApiOperation({
     summary: 'Busca o medicamento com o ID informado.',
   })
+  @UseGuards(new RoleGuard(['admin', 'convidado']))
   @Get(':id')
   findOne(@Param('id', CheckMedicineExistencePipe) medicine: Medicine) {
     return this.medicineService.findOne(medicine.id);
@@ -94,6 +95,7 @@ export class MedicineController {
   @ApiOperation({
     summary: 'Atualiza o medicamento com o ID informado.',
   })
+  @UseGuards(new RoleGuard(['admin']))
   @Patch(':id')
   update(
     @Param('id', CheckMedicineExistencePipe) medicine: Medicine,

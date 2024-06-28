@@ -42,6 +42,8 @@ model Medicine {
 model Stock {
   id       String    @id @unique @default(uuid())
   medicine Medicine?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 
   entrance Entrance[]
   exit     Exit[]

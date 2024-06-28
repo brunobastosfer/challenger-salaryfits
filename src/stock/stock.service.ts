@@ -30,25 +30,11 @@ export class StockService {
     return await this.stockRepository.update(medicine, data);
   }
 
-  async generatePDF(
-    medicineId: string,
-    initialDate: string,
-    finalDate: string,
-  ) {
-    const entrance = await this.entranceService.getEntrances(
-      medicineId,
+  async generatePDF(initialDate: string, finalDate: string) {
+    const stock = await this.stockRepository.findStockByDates(
       initialDate,
       finalDate,
     );
-
-    const exits = await this.exitService.getExits(
-      medicineId,
-      initialDate,
-      finalDate,
-    );
-
-    const medicine =
-      await this.stockRepository.findStockByMedicineId(medicineId);
 
     const imageUrl =
       'https://cdn.prod.website-files.com/604f6dd6484918ba61b90055/660c3ae38c4e84e1e8e4faad_LOGO.png';
@@ -66,21 +52,42 @@ export class StockService {
 
     doc.moveDown(5);
 
-    doc.fontSize(20).text('Entradas', { underline: true });
-    entrance.forEach((enter) => {
-      doc
-        .fontSize(12)
-        .text(
-          `Medicamento: ${medicine.medicine.name}, Valor: ${medicine.medicine.price}, QTD: ${enter.qtd}, DATA: ${enter.createdAt}`,
-        );
+    stock.forEach((item) => {
+      item.entrance.forEach((entrance) => {
+        doc
+          .fontSize(12)
+          .text(
+            `Medicamento: ${item.medicine.name}, Valor: ${item.medicine.price}, QTD: ${entrance.qtd}, DATA: ${entrance.createdAt}`,
+          );
+      });
+
+      if (item.entrance.length === 0) {
+        doc
+          .fontSize(12)
+          .text(
+            `Medicamento: ${item.medicine.name}, Valor: ${item.medicine.price}, QTD: 0, DATA: Não houveram entradas`,
+          );
+      }
     });
+
     doc.addPage().fontSize(20).text('Saídas', { underline: true });
-    exits.forEach((exit) => {
-      doc
-        .fontSize(12)
-        .text(
-          `Medicamento: ${medicine.medicine.name}, Valor: ${medicine.medicine.price}, QTD: ${exit.qtd}, DATA: ${exit.createdAt}`,
-        );
+
+    stock.forEach((item) => {
+      item.exit.forEach((exit) => {
+        doc
+          .fontSize(12)
+          .text(
+            `Medicamento: ${item.medicine.name}, Valor: ${item.medicine.price}, QTD: ${exit.qtd}, DATA: ${exit.createdAt}`,
+          );
+      });
+
+      if (item.exit.length === 0) {
+        doc
+          .fontSize(12)
+          .text(
+            `Medicamento: ${item.medicine.name}, Valor: ${item.medicine.price}, QTD: 0, DATA: Não houveram saídas`,
+          );
+      }
     });
 
     doc.end();
