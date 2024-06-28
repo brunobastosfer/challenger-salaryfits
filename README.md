@@ -63,6 +63,7 @@ $ npm run test:cov
  ```
 - Apenas admins podem criar medicamentos.
 - Convidado e admin podem verificar todos os medicamentos
+- Login como admin, é o email: admin@email.com.br e como convidado é: convidado@email.com.br
 
 ## Contatos
 
