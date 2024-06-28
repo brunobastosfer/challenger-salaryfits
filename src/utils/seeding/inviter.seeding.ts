@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import { inviters } from '../../utils/local-data/inviters';
 const bcrypt = require('bcryptjs');
-export const adminSeed = async (prisma: PrismaClient) => {
+export const inviterSeed = async (prisma: PrismaClient) => {
   for (const user of inviters) {
     await prisma.user.upsert({
       where: {

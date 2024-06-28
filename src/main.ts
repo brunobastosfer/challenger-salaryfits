@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { adminSeed } from './utils/seeding/admin.seeding';
 import { PrismaClient } from '@prisma/client';
+import { inviterSeed } from './utils/seeding/inviter.seeding';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +20,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, document);
   app.useGlobalPipes(new ValidationPipe());
   await adminSeed(new PrismaClient());
+  await inviterSeed(new PrismaClient());
   await app.listen(3000);
 }
 bootstrap();
