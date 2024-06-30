@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ExitController } from './exit.controller';
-import { ExitService } from './exit.service';
+import { ExitController } from '../exit/exit.controller';
+import { ExitService } from '../exit/exit.service';
+import { ExitPrismaRepository } from '../exit/repository/prisma/exit.prisma.repository';
 
 describe('ExitController', () => {
   let controller: ExitController;
@@ -8,7 +9,7 @@ describe('ExitController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ExitController],
-      providers: [ExitService],
+      providers: [ExitService, ExitPrismaRepository],
     }).compile();
 
     controller = module.get<ExitController>(ExitController);
