@@ -65,6 +65,9 @@ $ npm run test:cov
 - Convidado e admin podem verificar todos os medicamentos
 - Login como admin, é o email: admin@email.com.br e como convidado é: convidado@email.com.br
 
+## Docker
+- Criação em andamento.
+
 ## Contatos
 
 - Author - [Bruno bastos Fernandes](https://br.linkedin.com/in/brunobastosfer)
