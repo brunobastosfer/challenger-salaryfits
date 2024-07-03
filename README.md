@@ -22,10 +22,10 @@ $ npm install
 ```
 
 ## Variáveis de ambiente
-- DATABASE_URL= <insira a url do seu banco de dados aqui>
-- JWT_SECRET= <insira um secret aqui. Ex: aaabbbcccd>
-- ADMIN_PASSWORD= <insira uma senha para o admin. Ex= abc123>
-- INVITER_SECRET= <insira uma senha para o inviter. Ex=123abc>
+- DATABASE_URL= _insira a url do seu banco de dados aqui_
+- JWT_SECRET= _insira um secret aqui. Ex: aaabbbcccd_
+- ADMIN_PASSWORD= _insira uma senha para o admin. Ex= abc123_
+- INVITER_SECRET= _insira uma senha para o inviter. Ex=123abc_
 
 
 ## Para rodar o projeto
