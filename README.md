@@ -21,6 +21,13 @@ API desenvolvida para criação de estoque e medicamentos e geração de relató
 $ npm install
 ```
 
+## Variáveis de ambiente
+- DATABASE_URL= <insira a url do seu banco de dados aqui>
+- JWT_SECRET= <insira um secret aqui. Ex: aaabbbcccd>
+- ADMIN_PASSWORD= <insira uma senha para o admin. Ex= abc123>
+- INVITER_SECRET= <insira uma senha para o inviter. Ex=123abc>
+
+
 ## Para rodar o projeto
 
 ```bash
